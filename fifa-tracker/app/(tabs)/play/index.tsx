@@ -1,10 +1,9 @@
 import { View, Text } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import PlayersService from '../../../services/playersService';
+import { Player } from '../../../utils/player';
 
 export default function Play() {
-  return (
-    <View>
-      <Text>Play</Text>
-    </View>
-  );
+  
 }
