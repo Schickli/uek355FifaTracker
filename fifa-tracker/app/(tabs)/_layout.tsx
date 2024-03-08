@@ -1,10 +1,15 @@
 import React from "react";
 import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { CustomHeader } from "../components/CustomHeader";
 
 export default function TabsLayout() {
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
+    <Tabs
+      screenOptions={{
+        header: () => <CustomHeader title="Fifa Tracker" />,
+      }}
+    >
       <Tabs.Screen
         name="statistics/index"
         options={{
