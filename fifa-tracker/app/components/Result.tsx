@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import React, { useCallback, useState } from "react";
-import { colorPallet } from "./ColorPallet";
-import { Button } from "./Button";
+import { colorPallet } from "../../utils/ColorPallet";
+import Button from "./Button";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 
@@ -15,7 +15,7 @@ type Resultprops = {
 
 type SetStateType = React.Dispatch<React.SetStateAction<any>>;
 
-export function Result(props: Resultprops) {
+export default function Result(props: Resultprops) {
   const [fontsLoaded, fontError] = useFonts({
     "Nohemi Bold": require("../../assets/fonts/Nohemi-Bold.ttf"),
   });

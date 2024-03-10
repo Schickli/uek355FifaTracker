@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { colorPallet } from "./ColorPallet";
+import { colorPallet } from "../../utils/ColorPallet";
 import { useFonts } from "expo-font";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -11,7 +11,7 @@ type Game = {
   team2: string[];
 };
 
-export function Game({ date, score, team1, team2 }: Game) {
+export default function Game({ date, score, team1, team2 }: Game) {
   const [fontsLoaded] = useFonts({
     "Nohemi Bold": require("../../assets/fonts/Nohemi-Bold.ttf"),
   });
@@ -68,7 +68,7 @@ export function Game({ date, score, team1, team2 }: Game) {
             </Text>
           ))}
         </View>
-        <Text style={{ fontFamily: "Nohemi Bold", fontSize: 32 }}>2 - 1</Text>
+        <Text style={{ fontFamily: "Nohemi Bold", fontSize: 32 }}>{score}</Text>
         <View style={{ width: "30%" }}>
           {team2.map((player, index) => (
             <Text

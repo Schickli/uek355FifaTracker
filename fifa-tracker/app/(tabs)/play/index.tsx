@@ -1,11 +1,11 @@
 import { View, SafeAreaView } from "react-native";
-import { Button } from "../../components/Button";
-import { colorPallet } from "../../components/ColorPallet";
+import Button from "../../components/Button";
+import { colorPallet } from "../../../utils/ColorPallet";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React, { useState } from "react";
-import { Result } from "../../components/Result";
-import { TeamSelection } from "../../components/TeamSelection";
-import { TabButton } from "../../components/TabButton";
+import Result from "../../components/Result";
+import TeamSelection from "../../components/TeamSelection";
+import TabButton from "../../components/TabButton";
 
 export default function Play() {
   const [teamResult1, setTeamResult1] = useState(0);

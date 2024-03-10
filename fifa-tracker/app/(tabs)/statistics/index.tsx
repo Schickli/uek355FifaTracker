@@ -1,9 +1,9 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React, { useEffect, useState } from "react";
 import PlayersService from "../../../services/playersService";
-import { Player } from "../../../utils/player";
-import { StatsContainer } from "../../components/StatsContainer";
-import { colorPallet } from "../../components/ColorPallet";
+import { Player } from "../../../utils/Player";
+import StatsContainer from "../../components/StatsContainer";
+import { colorPallet } from "../../../utils/ColorPallet";
 
 export default function Statistics() {
   const [players, setPlayers] = useState([] as Player[]);
@@ -14,6 +14,7 @@ export default function Statistics() {
       setPlayers(players);
     });
   }, []);
+
   return (
     <View style={{ padding: 16 }}>
       {/* <Text>Play</Text>

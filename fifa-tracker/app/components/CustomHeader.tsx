@@ -1,10 +1,10 @@
 import React from "react";
 import { SafeAreaView, Text, StyleSheet } from "react-native";
-import { colorPallet } from "./ColorPallet";
-import { Button } from "./Button";
+import { colorPallet } from "../../utils/ColorPallet";
+import Button from "./Button";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useFonts } from "expo-font";
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 
 type HeaderProps = {
   title: string;

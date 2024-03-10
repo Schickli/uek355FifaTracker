@@ -1,9 +1,9 @@
 import { View, StyleSheet, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { colorPallet } from "./ColorPallet";
+import { colorPallet } from "../../utils/ColorPallet";
 
-export function SearchBar() {
+export default function SearchBar() {
   return (
     <View style={styles.SearchBar}>
       <TextInput

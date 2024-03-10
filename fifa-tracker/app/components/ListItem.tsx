@@ -1,14 +1,14 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 
-interface ListItemProps {
+type ListItemProps = {
   name: string;
   action?: (index: number) => void;
   index: number;
   children: React.ReactNode;
 }
 
-export function ListItem({ name, action, index, children }: ListItemProps) {
+export default function ListItem({ name, action, index, children }: ListItemProps) {
   return (
     <View
       style={{

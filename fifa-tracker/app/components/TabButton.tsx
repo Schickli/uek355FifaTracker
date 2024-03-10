@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import { colorPallet } from "./ColorPallet";
+import { colorPallet } from "../../utils/ColorPallet";
 import React from "react";
 
 type TabButtonProps = {
@@ -8,7 +8,13 @@ type TabButtonProps = {
   currentTab: string;
 };
 
-export function TabButton({ tabs, setCurrentTab, currentTab }: TabButtonProps) {
+export default function TabButton({
+  tabs,
+  setCurrentTab,
+  currentTab,
+}: TabButtonProps) {
+  const tabWidth = 100 / tabs.length;
+
   return (
     <View style={{ width: "100%" }}>
       <View

@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import React from "react";
-import { colorPallet } from "./ColorPallet";
+import { colorPallet } from "../../utils/ColorPallet";
 import { useFonts } from "expo-font";
 
 type TeamSelectionProps = {
@@ -10,7 +10,7 @@ type TeamSelectionProps = {
   color: string;
 };
 
-export function StatsContainer({
+export default function StatsContainer({
   headLine,
   subTitle,
   backgroundColor,

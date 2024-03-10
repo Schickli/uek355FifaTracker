@@ -1,7 +1,7 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React from "react";
-import { SearchBar } from "../../components/SearchBar";
-import { Game } from "../../components/Game";
+import SearchBar from "../../components/SearchBar";
+import Game from "../../components/Game";
 
 export default function History() {
   return (

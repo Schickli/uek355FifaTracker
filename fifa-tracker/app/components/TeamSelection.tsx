@@ -1,15 +1,15 @@
 import { TouchableOpacity, View } from "react-native";
-import { colorPallet } from "./ColorPallet";
+import { colorPallet } from "../../utils/ColorPallet";
 import React, { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { ListItem } from "./ListItem";
+import ListItem from "./ListItem";
 import { Link } from "expo-router";
 
 type TeamSelectionProps = {
   currentTeam: "Team 1" | "Team 2";
 };
 
-export function TeamSelection({ currentTeam }: TeamSelectionProps) {
+export default function TeamSelection({ currentTeam }: TeamSelectionProps) {
   const [team1, setTeam1] = useState([
     { name: "Spieler 1" },
     { name: "Spieler 2" },

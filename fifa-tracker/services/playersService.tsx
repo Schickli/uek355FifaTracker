@@ -1,7 +1,7 @@
 import { Firestore, getFirestore, collection, getDocs, CollectionReference, DocumentData } from 'firebase/firestore';
 
 import firebaseApp from '../firebaseConfig'
-import { Player } from '../utils/player';
+import { Player } from '../utils/Player';
 
 class PlayersService {
   private playersCollection: CollectionReference<DocumentData>;
