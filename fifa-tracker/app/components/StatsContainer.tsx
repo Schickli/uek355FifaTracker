@@ -3,14 +3,19 @@ import React from "react";
 import { colorPallet } from "./ColorPallet";
 import { useFonts } from "expo-font";
 
-
 type TeamSelectionProps = {
-   headLine: string;
-   subTitle: string;
-   backgroundColor: string;
+  headLine: string;
+  subTitle: string;
+  backgroundColor: string;
+  color: string;
 };
 
-export default function StatsContainer({ headLine, subTitle, backgroundColor }: TeamSelectionProps) {
+export function StatsContainer({
+  headLine,
+  subTitle,
+  backgroundColor,
+  color,
+}: TeamSelectionProps) {
   const [fontsLoaded] = useFonts({
     "Nohemi Bold": require("../../assets/fonts/Nohemi-Bold.ttf"),
   });
@@ -20,9 +25,11 @@ export default function StatsContainer({ headLine, subTitle, backgroundColor }: 
   }
 
   return (
-    <View style={{backgroundColor: backgroundColor}}>
-      <Text style={{fontFamily: "Nahomi Bold", fontSize: 32}}>{headLine}</Text>
-      <Text>{subTitle}</Text>
+    <View style={{ backgroundColor: backgroundColor, paddingHorizontal: 26, paddingVertical: 16, borderRadius: 5}}>
+      <Text style={{ fontFamily: "Nohemi Bold", fontSize: 32, color: color }}>
+        {headLine}
+      </Text>
+      <Text style={{ color: color, marginTop: 4 }}>{subTitle}</Text>
     </View>
   );
 }

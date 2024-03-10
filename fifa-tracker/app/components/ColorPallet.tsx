@@ -7,4 +7,5 @@ export enum colorPallet {
     onPrimary = '#FFFFFF',
     outline = '#E0E0E0',
     primaryLight = 'rgba(39, 130, 223, 0.2)',
+    transparent = 'rgba(0, 0, 0, 0)',
 }
