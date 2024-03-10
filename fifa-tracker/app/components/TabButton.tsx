@@ -1,8 +1,6 @@
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import { useFonts } from "expo-font";
+import { View, Text, TouchableOpacity } from "react-native";
 import { colorPallet } from "./ColorPallet";
-import React, { useState } from "react";
-import { ListItem } from "./ListItem";
+import React from "react";
 
 type TabButtonProps = {
   tabs: string[];

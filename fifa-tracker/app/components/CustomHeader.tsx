@@ -1,28 +1,35 @@
 import React from "react";
 import { SafeAreaView, Text, StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
 import { colorPallet } from "./ColorPallet";
 import { Button } from "./Button";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useFonts } from "expo-font";
+import { Link, router } from "expo-router";
 
 type HeaderProps = {
   title: string;
 };
 
-export const CustomHeader: React.FC<HeaderProps> = ({ title }) => {
+export function CustomHeader({ title }: HeaderProps) {
   const [fontsLoaded] = useFonts({
-    "Nohemi-Bold": require("../../assets/fonts/Nohemi-Bold.ttf"),
+    "Nohemi Bold": require("../../assets/fonts/Nohemi-Bold.ttf"),
   });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <SafeAreaView style={styles.header}>
       <Text style={styles.title}>{title}</Text>
-      <Button type="tertiaryButton" onPress={() => {}}>
-        <Ionicons name="person" size={30} color={colorPallet.primary} />
-      </Button>
+      <Link href="modals/managePlayers" asChild>
+        <Button type="tertiaryButton">
+          <Ionicons name="person" size={30} color={colorPallet.primary} />
+        </Button>
+      </Link>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   header: {
@@ -39,6 +46,6 @@ const styles = StyleSheet.create({
     color: colorPallet.text,
     fontSize: 32,
     fontWeight: "bold",
-    fontFamily: "Nohemi-Bold",
+    fontFamily: "Nohemi Bold",
   },
 });

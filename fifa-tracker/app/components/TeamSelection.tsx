@@ -1,16 +1,15 @@
-import { View, Text, FlatList } from "react-native";
-import { useFonts } from "expo-font";
+import { TouchableOpacity, View } from "react-native";
 import { colorPallet } from "./ColorPallet";
 import React, { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { ListItem } from "./ListItem";
-import { TabButton } from "./TabButton";
+import { Link } from "expo-router";
 
 type TeamSelectionProps = {
   currentTeam: "Team 1" | "Team 2";
 };
 
-export function TeamSelection({ currentTeam} : TeamSelectionProps) {
+export function TeamSelection({ currentTeam }: TeamSelectionProps) {
   const [team1, setTeam1] = useState([
     { name: "Spieler 1" },
     { name: "Spieler 2" },
@@ -23,22 +22,14 @@ export function TeamSelection({ currentTeam} : TeamSelectionProps) {
     { name: "Spieler 4" },
   ]);
 
-  const [fontsLoaded] = useFonts({
-    "Nohemi-Bold": require("../../assets/fonts/Nohemi-Bold.ttf"),
-  });
-
-function removePlayer(index: number) {
+  function removePlayer(index: number) {
     if (currentTeam === "Team 1") {
-        const newTeam1 = team1.filter((_, i) => i !== index);
-        setTeam1(newTeam1);
+      const newTeam1 = team1.filter((_, i) => i !== index);
+      setTeam1(newTeam1);
     } else {
-        const newTeam2 = team2.filter((_, i) => i !== index);
-        setTeam2(newTeam2);
+      const newTeam2 = team2.filter((_, i) => i !== index);
+      setTeam2(newTeam2);
     }
-}
-
-  function addPlayer() {
-    console.log("Add player");
   }
 
   return (
@@ -71,9 +62,13 @@ function removePlayer(index: number) {
           marginTop: 10,
         }}
       >
-        <ListItem name="Add Player" action={addPlayer} index={0}>
-          <Ionicons name="add" size={24} color={colorPallet.secondary} />
-        </ListItem>
+        <Link href="modals/addPlayerToTeamModal" asChild>
+          <TouchableOpacity>
+            <ListItem name="Add Player" index={0}>
+              <Ionicons name="add" size={24} color={colorPallet.secondary} />
+            </ListItem>
+          </TouchableOpacity>
+        </Link>
       </View>
     </View>
   );

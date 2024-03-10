@@ -1,9 +1,9 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { colorPallet } from "./ColorPallet";
 import { Button } from "./Button";
 import { Ionicons } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
 
 type Resultprops = {
   setTeam1: SetStateType;
@@ -16,11 +16,19 @@ type Resultprops = {
 type SetStateType = React.Dispatch<React.SetStateAction<any>>;
 
 export function Result(props: Resultprops) {
+  const [fontsLoaded, fontError] = useFonts({
+    "Nohemi Bold": require("../../assets/fonts/Nohemi-Bold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   const handlePlus = () => {
     if (props.currentTeam === "Team 1") {
-      props.setTeam1((prevScore: number) => prevScore + 1);
+      props.setTeam1((prevScore: number) => Math.min(prevScore + 1, 99));
     } else {
-      props.setTeam2((prevScore: number) => prevScore + 1);
+      props.setTeam2((prevScore: number) => Math.min(prevScore + 1, 99));
     }
   };
 
@@ -33,12 +41,14 @@ export function Result(props: Resultprops) {
   };
 
   return (
-    <View style={{marginTop: 32}}>
+    <View style={{ marginTop: 32, display: "flex", justifyContent: "center", width: "100%" }}>
       <View
         style={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
         }}
       >
         <Text
@@ -49,6 +59,7 @@ export function Result(props: Resultprops) {
                 props.currentTeam === "Team 1"
                   ? colorPallet.primary
                   : colorPallet.text,
+              width: 150,
             },
           ]}
         >
@@ -63,6 +74,7 @@ export function Result(props: Resultprops) {
                 props.currentTeam === "Team 2"
                   ? colorPallet.primary
                   : colorPallet.text,
+              width: 150,
             },
           ]}
         >
@@ -73,10 +85,10 @@ export function Result(props: Resultprops) {
         style={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-between",
+          justifyContent: "space-evenly",
           marginTop: 16,
           marginBottom: 32,
-          width: "40%",
+   
         }}
       >
         <Button type="primaryButton" onPress={handleMinus}>
@@ -93,6 +105,8 @@ export function Result(props: Resultprops) {
 
 const styles = StyleSheet.create({
   numbers: {
-    fontSize: 96,
+    fontSize: 120,
+    textAlign: "center",
+    fontFamily: "Nohemi Bold",
   },
 });

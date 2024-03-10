@@ -1,10 +1,11 @@
 import { TouchableOpacity, Text, View } from "react-native";
 import { colorPallet } from "./ColorPallet";
+import { useFonts } from "expo-font";
 
 type ButtonProps = {
   type?: "primaryButton" | "secondaryButton" | "tertiaryButton";
   text?: string;
-  onPress: () => void;
+  onPress?: () => void;
   style?: any;
   children?: React.ReactNode;
   icon?: string;
@@ -42,7 +43,7 @@ export function Button(props: ButtonProps) {
       {props.children && <View style={props.text ? {marginRight: 8} : {}}>{props.children}</View>}
       {props.text && (
         <Text
-          style={{ color: color, fontFamily: "Nohemi-Regular", fontSize: 16 }}
+          style={{ color: color, fontSize: 16 }}
         >
           {props.text}
         </Text>

@@ -1,5 +1,4 @@
 import { View, SafeAreaView } from "react-native";
-import { useFonts } from "expo-font";
 import { Button } from "../../components/Button";
 import { colorPallet } from "../../components/ColorPallet";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -12,10 +11,6 @@ export default function Play() {
   const [teamResult1, setTeamResult1] = useState(0);
   const [teamResult2, setTeamResult2] = useState(0);
   const [currentTeam, setCurrentTeam] = useState("Team 1" as "Team 1" | "Team 2");
-
-  const [fontsLoaded] = useFonts({
-    "Nohemi-Bold": require("../../../assets/fonts/Nohemi-Bold.ttf"),
-  });
 
   function saveGame() {
     console.log("Save game");
