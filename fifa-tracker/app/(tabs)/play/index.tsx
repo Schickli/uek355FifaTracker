@@ -5,10 +5,13 @@ import { colorPallet } from "../../components/ColorPallet";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React, { useState } from "react";
 import { Result } from "../../components/Result";
+import { TeamSelection } from "../../components/TeamSelection";
+import { TabButton } from "../../components/TabButton";
 
 export default function Play() {
-  const [teamResult1, setTeamResult1] = useState("");
-  const [teamResult2, setTeamResult2] = useState("");
+  const [teamResult1, setTeamResult1] = useState(0);
+  const [teamResult2, setTeamResult2] = useState(0);
+  const [currentTeam, setCurrentTeam] = useState("Team 1" as "Team 1" | "Team 2");
 
   const [fontsLoaded] = useFonts({
     "Nohemi-Bold": require("../../../assets/fonts/Nohemi-Bold.ttf"),
@@ -28,12 +31,15 @@ export default function Play() {
           alignItems: "center",
         }}
       >
-        <Result team1={setTeamResult1} team2={setTeamResult2} />
+        <TabButton tabs={["Team 1", "Team 2"]} setCurrentTab={setCurrentTeam} currentTab={currentTeam}/>
+        <Result currentTeam={currentTeam} team1={teamResult1} team2={teamResult2} setTeam2={setTeamResult2} setTeam1={setTeamResult1} />
+        <TeamSelection currentTeam={currentTeam}/>
         <View
           style={{
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            marginTop: 16,
           }}
         >
           <View style={{ marginRight: 8 }}>

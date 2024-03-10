@@ -2,7 +2,7 @@ import { TouchableOpacity, Text, View } from "react-native";
 import { colorPallet } from "./ColorPallet";
 
 type ButtonProps = {
-  type?: "primaryButton" | "secondaryButton";
+  type?: "primaryButton" | "secondaryButton" | "tertiaryButton";
   text?: string;
   onPress: () => void;
   style?: any;
@@ -11,7 +11,7 @@ type ButtonProps = {
 };
 
 export function Button(props: ButtonProps) {
-  let backgroundColor = colorPallet.primary;
+  let backgroundColor = "";
   let color = colorPallet.onPrimary;
 
   if (props.type === "primaryButton") {
@@ -19,6 +19,9 @@ export function Button(props: ButtonProps) {
     color = colorPallet.onPrimary;
   } else if (props.type === "secondaryButton") {
     backgroundColor = colorPallet.secondary;
+    color = colorPallet.text;
+  } else if (props.type === "tertiaryButton") {
+    backgroundColor = "transparent";
     color = colorPallet.text;
   }
 

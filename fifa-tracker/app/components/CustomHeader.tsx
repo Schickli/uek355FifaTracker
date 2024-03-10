@@ -17,8 +17,8 @@ export const CustomHeader: React.FC<HeaderProps> = ({ title }) => {
   return (
     <SafeAreaView style={styles.header}>
       <Text style={styles.title}>{title}</Text>
-      <Button type="primaryButton" onPress={() => {}}>
-        <Ionicons name="person" size={30} color={colorPallet.onPrimary} />
+      <Button type="tertiaryButton" onPress={() => {}}>
+        <Ionicons name="person" size={30} color={colorPallet.primary} />
       </Button>
     </SafeAreaView>
   );
