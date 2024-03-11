@@ -55,7 +55,7 @@ class GamesService {
     console.log("Adding game");
     console.log(game);
     game.id = await this.uniqueID();
-    await this.postGame(game);
+    return await this.postGame(game);
   }
   
 }
