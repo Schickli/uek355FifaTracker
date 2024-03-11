@@ -31,6 +31,13 @@ export default function Play() {
   );
 
   function saveGame() {
+    if (teams["Team 1"].length === 0 || teams["Team 2"].length === 0) {
+      let toast = Toast.show("Please select players for both teams.", {
+        duration: Toast.durations.LONG,
+      });
+      return;
+    }
+
     const gamesService = new GamesService();
     let game: Game = {
       members1: teams["Team 1"].map((player) => player.name),
