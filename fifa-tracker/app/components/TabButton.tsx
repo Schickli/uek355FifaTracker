@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { colorPallet } from "../../utils/ColorPallet";
-import React from "react";
+import React, { useContext } from "react";
+import { TeamsContext } from "../_layout";
 
 type TabButtonProps = {
   tabs: string[];
@@ -14,6 +15,8 @@ export default function TabButton({
   currentTab,
 }: TabButtonProps) {
   const tabWidth = 100 / tabs.length;
+
+  let { currentTeam, teams, setTeams } = useContext(TeamsContext);
 
   return (
     <View style={{ width: "100%" }}>

@@ -2,7 +2,7 @@ import { View, SafeAreaView, TouchableOpacity } from "react-native";
 import Button from "../../components/Button";
 import { colorPallet } from "../../../utils/ColorPallet";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Result from "../../components/Result";
 import TeamSelection from "../../components/TeamSelection";
 import TabButton from "../../components/TabButton";
@@ -10,18 +10,12 @@ import GamesService from "../../../services/gamesService";
 import { Game } from "../../../utils/Game";
 import Toast from "react-native-root-toast";
 import { Player } from "../../../utils/Player";
+import { TeamsContext } from "../../_layout";
 
 export default function Play() {
   const [teamResult1, setTeamResult1] = useState(0);
   const [teamResult2, setTeamResult2] = useState(0);
-  const [teams, setTeams] = useState({
-    "Team 1": [] as Player[],
-    "Team 2": [] as Player[],
-  });
-
-  const [currentTeam, setCurrentTeam] = useState(
-    "Team 1" as "Team 1" | "Team 2"
-  );
+  let { teams, setTeams, currentTeam, setCurrentTeam } = useContext(TeamsContext);
 
   function saveGame() {
     if (teams["Team 1"].length === 0 || teams["Team 2"].length === 0) {
@@ -86,11 +80,7 @@ export default function Play() {
           setTeam2={setTeamResult2}
           setTeam1={setTeamResult1}
         />
-        <TeamSelection
-          currentTeam={currentTeam}
-          teams={teams}
-          setTeams={setTeams}
-        />
+        <TeamSelection />
         <View
           style={{
             display: "flex",

@@ -1,31 +1,19 @@
 import { TouchableOpacity, View } from "react-native";
 import { colorPallet } from "../../utils/ColorPallet";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import ListItem from "./ListItem";
 import { Link } from "expo-router";
 import { Player } from "../../utils/Player";
+import { TeamsContext } from "../_layout";
 
-type TeamSelectionProps = {
-  currentTeam: "Team 1" | "Team 2";
-  teams: { "Team 1": Player[]; "Team 2": Player[] };
-  setTeams: React.Dispatch<
-    React.SetStateAction<{
-      "Team 1": Player[];
-      "Team 2": Player[];
-    }>
-  >;
-};
-
-export default function TeamSelection({
-  currentTeam,
-  teams,
-  setTeams,
-}: TeamSelectionProps) {
+export default function TeamSelection() {
+  let { currentTeam, teams, setTeams } = useContext(TeamsContext);
+  currentTeam = "Team 2";
   function removePlayer(index: number) {
     const newTeams = { ...teams };
     newTeams[currentTeam] = newTeams[currentTeam].filter((_, i) => i !== index);
-    setTeams(newTeams);
+    // setTeams(newTeams);
   }
 
   return (
@@ -58,7 +46,7 @@ export default function TeamSelection({
           marginTop: 10,
         }}
       >
-        <Link href="modals/addPlayerToTeamModal" asChild>
+        <Link href="modals/addPlayerToTeamModal" asChild >
           <TouchableOpacity>
             <ListItem name="Add Player" index={0}>
               <Ionicons name="add" size={24} color={colorPallet.secondary} />

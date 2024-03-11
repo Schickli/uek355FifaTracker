@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
+  Keyboard,
 } from "react-native";
 import { colorPallet } from "../../utils/ColorPallet";
 import { useFonts } from "expo-font";
@@ -13,6 +14,7 @@ import ListItem from "../components/ListItem";
 import PlayersService from "../../services/playersService";
 import { Player } from "../../utils/Player";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Toast from "react-native-root-toast";
 
 export default function Manageplayers() {
   const [fontsLoaded] = useFonts({
@@ -46,6 +48,7 @@ export default function Manageplayers() {
     playerservice.deletePlayer(id).then(() => {
       const newPlayers = players.filter((player) => player.id !== id);
       setPlayers(newPlayers);
+      setFilteredPlayers(newPlayers);
     });
   }
 
@@ -57,12 +60,23 @@ export default function Manageplayers() {
       losses: 0,
       draws: 0,
     } as Player;
-    playerservice.addPlayer(newPlayer).then((data) => {
-      playerservice.getPlayers().then((data) => {
-        setPlayers(data);
-        setFilteredPlayers(data);
+    playerservice
+      .addPlayer(newPlayer)
+      .then((data) => {
+        playerservice.getPlayers().then((data) => {
+          setPlayers(data);
+          setFilteredPlayers(data);
+          const toast = Toast.show("Player added!", {
+            duration: Toast.durations.LONG,
+          });
+        });
+      })
+      .catch(() => {
+        const toast = Toast.show("Failed to add player.", {
+          duration: Toast.durations.LONG,
+        });
       });
-    });
+    setSearch("");
   }
 
   if (!fontsLoaded) {
@@ -70,36 +84,44 @@ export default function Manageplayers() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Players</Text>
-      <Text style={styles.subtitle}>Search or Add players</Text>
-      <SearchBar setValue={setSearch}>
-        <TouchableOpacity onPress={() => addPlayer()}>
-          <Ionicons name="add" size={30} color={colorPallet.secondary} />
-        </TouchableOpacity>
-      </SearchBar>
-      {filteredPlayers.length === 0 ? (
-        <View style={styles.noPlayersContainer}>
-          <Text style={styles.noPlayers}>No players found.</Text>
-          <Text style={[styles.noPlayers, {marginTop: 4}]}>Change search or add new player.</Text>
+    <TouchableOpacity onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Players</Text>
+        <Text style={styles.subtitle}>Search or Add players</Text>
+        <SearchBar setValue={setSearch}>
+          <TouchableOpacity onPress={() => addPlayer()}>
+            <Ionicons name="add" size={30} color={colorPallet.secondary} />
+          </TouchableOpacity>
+        </SearchBar>
+        {filteredPlayers.length === 0 ? (
+          <View style={styles.noPlayersContainer}>
+            <Text style={styles.noPlayers}>No players found.</Text>
+            <Text style={[styles.noPlayers, { marginTop: 4 }]}>
+              Change search or add new player.
+            </Text>
           </View>
-      ) : (
-        <FlatList
-          data={filteredPlayers}
-          renderItem={({ item }) => (
-            <ListItem
-              name={item.full_name}
-              index={item.id ?? 0}
-              action={deletePlayer}
-            >
-              <Ionicons name="trash" color={colorPallet.secondary} size={24} />
-            </ListItem>
-          )}
-          keyExtractor={(item) => item.id?.toString() ?? "0"}
-          style={styles.flatlist}
-        />
-      )}
-    </View>
+        ) : (
+          <FlatList
+            data={filteredPlayers}
+            renderItem={({ item }) => (
+              <ListItem
+                name={item.full_name}
+                index={item.id ?? 0}
+                action={deletePlayer}
+              >
+                <Ionicons
+                  name="trash"
+                  color={colorPallet.secondary}
+                  size={24}
+                />
+              </ListItem>
+            )}
+            keyExtractor={(item) => item.id?.toString() ?? "0"}
+            style={styles.flatlist}
+          />
+        )}
+      </View>
+    </TouchableOpacity>
   );
 }
 
