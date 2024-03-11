@@ -15,7 +15,8 @@ export default function History() {
     gamesService
       .getGames()
       .then((games: Game[]) => {
-        setGames(games);
+        console.log(games);
+        setGames(games);;
       })
       .catch((error) => {
         let toast = Toast.show("Request failed to send.", {
@@ -34,12 +35,12 @@ export default function History() {
           keyExtractor={(item) => (item.id ? item.id.toString() : "0")}
           renderItem={({ item }) => (
             <View style={{ marginTop: 24 }}>
-              {/* <GameDetail
+              <GameDetail
                 date={item.date.toLocaleString()}
                 score={item.score1 + " - " + item.score2}
                 team1={item.members1}
                 team2={item.members2}
-              /> */}
+              />
             </View>
           )}
         />
