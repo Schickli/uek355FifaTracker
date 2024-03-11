@@ -9,20 +9,21 @@ import TabButton from "../../components/TabButton";
 import GamesService from "../../../services/gamesService";
 import { Game } from "../../../utils/Game";
 import Toast from "react-native-root-toast";
+import { Player } from "../../../utils/Player";
 
 export default function Play() {
   const [teamResult1, setTeamResult1] = useState(0);
   const [teamResult2, setTeamResult2] = useState(0);
   const [teams, setTeams] = useState({
     "Team 1": [
-      { name: "Spieler 1" },
-      { name: "Spieler 2" },
-      { name: "Spieler 3" },
+      { full_name: "Spieler 1" } as Player,
+      { full_name: "Spieler 2" } as Player,
+      { full_name: "Spieler 3" } as Player,
     ],
     "Team 2": [
-      { name: "Spieler 6" },
-      { name: "Spieler 5" },
-      { name: "Spieler 4" },
+      { full_name: "Spieler 6" } as Player,
+      { full_name: "Spieler 5" } as Player,
+      { full_name: "Spieler 4" } as Player,
     ],
   });
 
@@ -40,8 +41,8 @@ export default function Play() {
 
     const gamesService = new GamesService();
     let game: Game = {
-      members1: teams["Team 1"].map((player) => player.name),
-      members2: teams["Team 2"].map((player) => player.name),
+      members1: teams["Team 1"],
+      members2: teams["Team 2"],
       score1: teamResult1,
       score2: teamResult2,
       date: new Date().toLocaleString(),
