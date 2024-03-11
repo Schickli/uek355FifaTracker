@@ -33,6 +33,16 @@ export default function Play() {
       score2: teamResult2,
       date: new Date().toLocaleString(),
     };
+
+    // generiere einen dummy game
+    // let game: Game = {
+    //   members1: [{full_name: "Maurin Schickli"} as Player],
+    //   members2: [{full_name: "Cyrill Koller"} as Player],
+    //   score1: 30,
+    //   score2: 1,
+    //   date: new Date().toLocaleString(),
+    // };
+
     gamesService
       .addGame(game)
       .then(() => {

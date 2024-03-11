@@ -31,10 +31,11 @@ export default function History() {
       ) : (
         <FlatList
           data={games}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item) => item.id?.toString() || ""}
           renderItem={({ item }) => (
             <View style={{ marginTop: 24 }}>
               <GameDetail
+                id={item.id?.toString() || ""}
                 date={item.date.toLocaleString()}
                 score={item.score1 + " - " + item.score2}
                 team1={item.members1}

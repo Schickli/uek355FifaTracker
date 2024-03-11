@@ -32,26 +32,25 @@ class StatsService {
 
     return {
       allGoals: stats[0].allGoals,
-      averageGoalsPerGame:  stats[0].allGoals / stats[0].allGames || 0,
+      averageGoalsPerGame: stats[0].allGoals / stats[0].allGames || 0,
       mostWinsPlayer: mostWinsPlayer,
       allGames: stats[0].allGames,
     } as AllStatistics;
   }
 
   private calculateMostWinsPlayer(players: Player[]) {
-    let mostWinsPlayer = "";
-
-    for (const player of players) {
-      // find the player with the most wins
-      if (
-        player.wins ||
-        0 > (players.find((p) => p.full_name === mostWinsPlayer)?.wins || 0)
-      ) {
-        mostWinsPlayer = player.full_name;
+    if (players.length != 0) {
+      let mostWinsPlayer = players[0] as Player;
+      for (const player of players) {
+        if (player.wins > mostWinsPlayer.wins) {
+          mostWinsPlayer = player;
+        }
       }
+      return mostWinsPlayer.full_name;
+    } else {
+      let mostWinsPlayer = "";
+      return mostWinsPlayer;
     }
-
-    return mostWinsPlayer;
   }
 }
 

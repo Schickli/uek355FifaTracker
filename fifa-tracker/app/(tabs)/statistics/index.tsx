@@ -28,7 +28,7 @@ export default function Statistics() {
       <StatsContainer
         headLine={stats.allGoals?.toString() + " Goals" || "0 Goals"}
         subTitle={
-          stats.averageGoalsPerGame?.toString() + " Average Goals per Game" ||
+          stats.averageGoalsPerGame?.toFixed(2) + " Average Goals per Game" ||
           "0 Average Goals per Game"
         }
         color={colorPallet.onPrimary}

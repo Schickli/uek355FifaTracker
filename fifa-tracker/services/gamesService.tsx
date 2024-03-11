@@ -6,6 +6,7 @@ import {
   CollectionReference,
   DocumentData,
   setDoc,
+  deleteDoc,
   doc,
   updateDoc,
 } from "firebase/firestore";
@@ -88,9 +89,36 @@ class GamesService {
     }
   }
 
+  private async getGameById(id: number) {
+    const gameDoc = doc(getFirestore(firebaseApp), "games", id.toString());
+    const gameSnapshot = await getDocs(this.gamesCollection);
+    const game = gameSnapshot.docs.map((doc) => doc.data());
+    return game[0] as Game;
+  }
+
   public async addGame(game: Game) {
     game.id = await this.uniqueID();
     return await this.postGame(game);
+  }
+
+  public async deleteGame(id: number) {
+    const gameDoc = doc(getFirestore(firebaseApp), "games", id.toString());
+    const game = await this.getGameById(id);
+    await this.deleteGameStats(game);
+    await deleteDoc(gameDoc);
+  }
+
+  public async deleteGameStats(game: Game) {
+    const statsSnapshot = await getDocs(this.statsCollection);
+    const stats = statsSnapshot.docs.map((doc) => doc.data());
+    const allGoals = stats[0].allGoals - game.score1 - game.score2;
+    const allGames = stats[0].allGames - 1;
+
+    const statsDoc = doc(getFirestore(firebaseApp), "stats", "1");
+    await updateDoc(statsDoc, {
+      allGoals: allGoals,
+      allGames: allGames,
+    });
   }
 }
 
