@@ -1,14 +1,24 @@
-import { Firestore, getFirestore, collection, getDocs, CollectionReference, DocumentData, setDoc, doc } from 'firebase/firestore';
+import {
+  Firestore,
+  getFirestore,
+  collection,
+  getDocs,
+  CollectionReference,
+  DocumentData,
+  setDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
-import firebaseApp from '../firebaseConfig'
-import { Player } from '../utils/Player';
+import firebaseApp from "../firebaseConfig";
+import { Player } from "../utils/Player";
 
 class PlayersService {
   private playersCollection: CollectionReference<DocumentData>;
 
   constructor() {
     const db = getFirestore(firebaseApp);
-    this.playersCollection = collection(db, 'players');
+    this.playersCollection = collection(db, "players");
   }
 
   private async uniqueID() {
@@ -18,7 +28,14 @@ class PlayersService {
   }
 
   private async postPlayer(player: Player) {
-    await setDoc(doc(getFirestore(firebaseApp), "players", player.id?.toString() as string), player);
+    return await setDoc(
+      doc(
+        getFirestore(firebaseApp),
+        "players",
+        player.id?.toString() as string
+      ),
+      player
+    );
   }
 
   public async getPlayers() {
@@ -29,7 +46,30 @@ class PlayersService {
 
   public async addPlayer(player: Player) {
     player.id = await this.uniqueID();
-    await this.postPlayer(player);
+    return await this.postPlayer(player);
+  }
+
+  public async updatePlayerResults(
+    result: "win" | "loss" | "draw",
+    id: number
+  ) {
+    const playerRef = doc(getFirestore(firebaseApp), "players", id.toString());
+    try {
+      return updateDoc(playerRef, {
+        wins: result === "win" ? +1 : 0,
+        losses: result === "loss" ? +1 : 0,
+        draws: result === "draw" ? +1 : 0,
+      });
+    } catch (e) {
+      console.error("Error updating document: ", e);
+    }
+  }
+
+  public async getPlayerById(id: number) {
+    
+  }
+
+  public async deletePlayer(id: number) {
   }
 }
 
