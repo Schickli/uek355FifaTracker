@@ -6,6 +6,9 @@ import React, { useState } from "react";
 import Result from "../../components/Result";
 import TeamSelection from "../../components/TeamSelection";
 import TabButton from "../../components/TabButton";
+import GamesService from "../../../services/gamesService";
+import { Game } from "../../../utils/Game";
+import Toast from "react-native-root-toast";
 
 export default function Play() {
   const [teamResult1, setTeamResult1] = useState(0);
@@ -28,12 +31,25 @@ export default function Play() {
   );
 
   function saveGame() {
-    console.log(teams, teamResult1, teamResult2);
+    const gamesService = new GamesService();
+    let game: Game = {
+      members1: teams["Team 1"].map((player) => player.name),
+      members2: teams["Team 2"].map((player) => player.name),
+      score1: teamResult1,
+      score2: teamResult2,
+      date: new Date().toLocaleString(),
+    };
+    gamesService.addGame(game);
   }
 
   function clear() {
     setTeamResult1(0);
     setTeamResult2(0);
+
+    setTeams({
+      "Team 1": [],
+      "Team 2": [],
+    });
   }
 
   return (

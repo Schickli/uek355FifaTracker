@@ -1,5 +1,10 @@
 import { Redirect } from "expo-router";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 export default function HomeScreen() {
-  return <Redirect href="/play" />;
+  return (
+    <RootSiblingParent>
+      <Redirect href="/play" />
+    </RootSiblingParent>
+  );
 }

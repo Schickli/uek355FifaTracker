@@ -11,7 +11,7 @@ type Game = {
   team2: string[];
 };
 
-export default function Game({ date, score, team1, team2 }: Game) {
+export default function GameDetail({ date, score, team1, team2 }: Game) {
   const [fontsLoaded] = useFonts({
     "Nohemi Bold": require("../../assets/fonts/Nohemi-Bold.ttf"),
   });

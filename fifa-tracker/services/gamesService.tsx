@@ -29,12 +29,9 @@ class GamesService {
   }
 
   public async addGame(game: Game) {
-    console.log("Adding game");
-    console.log(game);
     game.id = await this.uniqueID();
     await this.postGame(game);
   }
-  
 }
 
 export default GamesService;
