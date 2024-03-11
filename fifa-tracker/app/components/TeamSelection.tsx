@@ -7,34 +7,29 @@ import { Link } from "expo-router";
 
 type TeamSelectionProps = {
   currentTeam: "Team 1" | "Team 2";
+  teams: { "Team 1": { name: string }[]; "Team 2": { name: string }[] };
+  setTeams: React.Dispatch<
+    React.SetStateAction<{
+      "Team 1": { name: string }[];
+      "Team 2": { name: string }[];
+    }>
+  >;
 };
 
-export default function TeamSelection({ currentTeam }: TeamSelectionProps) {
-  const [team1, setTeam1] = useState([
-    { name: "Spieler 1" },
-    { name: "Spieler 2" },
-    { name: "Spieler 3" },
-  ]);
-
-  const [team2, setTeam2] = useState([
-    { name: "Spieler 6" },
-    { name: "Spieler 5" },
-    { name: "Spieler 4" },
-  ]);
-
+export default function TeamSelection({
+  currentTeam,
+  teams,
+  setTeams,
+}: TeamSelectionProps) {
   function removePlayer(index: number) {
-    if (currentTeam === "Team 1") {
-      const newTeam1 = team1.filter((_, i) => i !== index);
-      setTeam1(newTeam1);
-    } else {
-      const newTeam2 = team2.filter((_, i) => i !== index);
-      setTeam2(newTeam2);
-    }
+    const newTeams = { ...teams };
+    newTeams[currentTeam] = newTeams[currentTeam].filter((_, i) => i !== index);
+    setTeams(newTeams);
   }
 
   return (
     <View style={{ width: "80%" }}>
-      {(currentTeam === "Team 1" ? team1 : team2).map((team, index) => (
+      {teams[currentTeam].map((player, index) => (
         <View
           key={index}
           style={{
@@ -43,11 +38,11 @@ export default function TeamSelection({ currentTeam }: TeamSelectionProps) {
           }}
         >
           <View>
-            <ListItem name={team.name} action={removePlayer} index={index}>
+            <ListItem name={player.name} action={removePlayer} index={index}>
               <Ionicons name="trash" size={24} color={colorPallet.secondary} />
             </ListItem>
           </View>
-          {index !== (currentTeam === "Team 2" ? team1 : team2).length - 1 && (
+          {index !== teams[currentTeam].length - 1 && (
             <View
               style={{ height: 1, borderBottomColor: colorPallet.outline }}
             />

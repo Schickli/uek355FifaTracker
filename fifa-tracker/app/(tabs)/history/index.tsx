@@ -4,9 +4,10 @@ import SearchBar from "../../components/SearchBar";
 import Game from "../../components/Game";
 
 export default function History() {
+
   return (
     <View style={{ padding: 16 }}>
-      <SearchBar />
+      {/* <SearchBar /> */}
       <View style={{ marginTop: 24 }}>
         <Game
           date={new Date().toLocaleString()}
