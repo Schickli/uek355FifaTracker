@@ -39,7 +39,19 @@ export default function Play() {
       score2: teamResult2,
       date: new Date().toLocaleString(),
     };
-    gamesService.addGame(game);
+    gamesService
+      .addGame(game)
+      .then(() => {
+        let toast = Toast.show("Game saved.", {
+          duration: Toast.durations.LONG,
+        });
+        clear();
+      })
+      .catch(() => {
+        let toast = Toast.show("Request failed to send.", {
+          duration: Toast.durations.LONG,
+        });
+      });
   }
 
   function clear() {
