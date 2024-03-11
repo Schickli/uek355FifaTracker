@@ -32,7 +32,7 @@ class StatsService {
 
     return {
       allGoals: stats[0].allGoals,
-      averageGoalsPerGame: stats[0].allGames / stats[0].allGoals || 0,
+      averageGoalsPerGame:  stats[0].allGoals / stats[0].allGames || 0,
       mostWinsPlayer: mostWinsPlayer,
       allGames: stats[0].allGames,
     } as AllStatistics;
