@@ -15,7 +15,6 @@ export default function History() {
     gamesService
       .getGames()
       .then((games: Game[]) => {
-        console.log(games);
         setGames(games);;
       })
       .catch((error) => {
@@ -32,7 +31,7 @@ export default function History() {
       ) : (
         <FlatList
           data={games}
-          keyExtractor={(item) => (item.id ? item.id.toString() : "0")}
+          keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={{ marginTop: 24 }}>
               <GameDetail

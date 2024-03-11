@@ -56,7 +56,7 @@ export default function GameDetail({ date, score, team1, team2 }: Game) {
         <View style={{ width: "30%" }}>
           {team1.map((player, index) => (
             <Text
-              key={player.id}
+              key={player.id + "team1"}
               style={{
                 fontSize: 16,
                 textAlign: "left",
@@ -71,7 +71,7 @@ export default function GameDetail({ date, score, team1, team2 }: Game) {
         <View style={{ width: "30%" }}>
           {team2.map((player, index) => (
             <Text
-              key={player.id}
+              key={player.id + "team2"}
               style={{
                 fontSize: 16,
                 textAlign: "right",
