@@ -9,7 +9,7 @@ import { TeamsContext } from "../_layout";
 
 export default function TeamSelection() {
   let { currentTeam, teams, setTeams } = useContext(TeamsContext);
-  currentTeam = "Team 2";
+
   function removePlayer(index: number) {
     const newTeams = { ...teams };
     newTeams[currentTeam] = newTeams[currentTeam].filter((_, i) => i !== index);

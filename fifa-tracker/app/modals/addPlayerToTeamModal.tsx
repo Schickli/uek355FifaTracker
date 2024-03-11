@@ -18,23 +18,26 @@ import PlayersService from "../../services/playersService";
 export default function AddPlayerToTeam() {
   const [search, setSearch] = useState("");
   const [uncheckedPlayers, setUncheckedPlayers] = useState([] as Player[]);
-  const { currentTeam, teams, setTeams, setCurrentTeam } = useContext(TeamsContext);
-
-  async function fetchData() {
-    const playersService = new PlayersService();
-    const unchecked = (await playersService.getPlayers()).filter((player) => {
-        return !teams[currentTeam].find((teamPlayer) => teamPlayer.id === player.id);
-    });
-    setUncheckedPlayers(unchecked);
-  }
+  const { currentTeam, teams, setTeams, setCurrentTeam } =
+    useContext(TeamsContext);
 
   useEffect(() => {
     fetchData();
   }, [teams[currentTeam]]);
 
+  async function fetchData() {
+    const playersService = new PlayersService();
+    const unchecked = (await playersService.getPlayers()).filter((player) => {
+      return !teams[currentTeam].find(
+        (teamPlayer) => teamPlayer.id === player.id
+      );
+    });
+    setUncheckedPlayers(unchecked);
+  }
 
   function addToTeam(index: number): void {
     const newTeams = { ...teams };
+
     newTeams[currentTeam].push(uncheckedPlayers[index]);
     setTeams(newTeams);
     setUncheckedPlayers(uncheckedPlayers.filter((_, i) => i !== index));
@@ -57,38 +60,50 @@ export default function AddPlayerToTeam() {
             <Ionicons name="search" size={30} color={colorPallet.secondary} />
           </TouchableOpacity>
         </SearchBar>
-        <FlatList
-          data={teams[currentTeam]}
-          renderItem={({ item }) => (
-            <ListItem name={item.full_name} index={item.id ?? 0} action={removeFromTeam}>
-              <Ionicons
-                name="checkmark-done"
-                color={colorPallet.secondary}
-                size={24}
-              />
-            </ListItem>
-          )}
-          keyExtractor={(item) => item.id?.toString() ?? "0"}
-          style={styles.flatlistChecked}
-        />
-        <FlatList
-          data={uncheckedPlayers}
-        renderItem={({ item }) => (
-            <ListItem
+        {teams[currentTeam].length === 0 ? (
+          <View style={styles.noPlayersContainer}>
+            <Text style={styles.noPlayers}>No players selected.</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={teams[currentTeam]}
+            renderItem={({ item, index }) => (
+              <ListItem
                 name={item.full_name}
-                index={item.id ?? 0}
-                action={addToTeam}
-            >
+                index={index}
+                action={removeFromTeam}
+              >
                 <Ionicons
-                    name="add-circle-outline"
-                    color={colorPallet.secondary}
-                    size={24}
+                  name="checkmark-done"
+                  color={colorPallet.secondary}
+                  size={24}
                 />
-            </ListItem>
+              </ListItem>
+            )}
+            keyExtractor={(item) => item.id?.toString() ?? "0"}
+            style={styles.flatlistChecked}
+          />
         )}
-          keyExtractor={(item) => item.id?.toString() ?? "0"}
-          style={styles.flatListUnchecked}
-        />
+        {uncheckedPlayers.length === 0 ? (
+          <View style={styles.noPlayersContainer}>
+            <Text style={styles.noPlayers}>No players anymore/yet</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={uncheckedPlayers}
+            renderItem={({ item, index }) => (
+              <ListItem name={item.full_name} index={index} action={addToTeam}>
+                <Ionicons
+                  name="add-circle-outline"
+                  color={colorPallet.secondary}
+                  size={24}
+                />
+              </ListItem>
+            )}
+            keyExtractor={(item) => item.id?.toString() ?? "0"}
+            style={styles.flatListUnchecked}
+          />
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -136,5 +151,6 @@ const styles = StyleSheet.create({
   noPlayers: {
     color: colorPallet.outline,
     fontSize: 16,
+    height: 24,
   },
 });

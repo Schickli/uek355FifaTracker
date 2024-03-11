@@ -1,14 +1,16 @@
 import { View, Text } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Toast from "react-native-root-toast";
 import GamesService from "../../../services/gamesService";
 import { Game } from "../../../utils/Game";
 import GameDetail from "../../components/GameDetail";
 import { FlatList } from "react-native";
 import { colorPallet } from "../../../utils/ColorPallet";
+import { TeamsContext } from "../../_layout";
 
 export default function History() {
   const [games, setGames] = useState({} as Game[]);
+  let { updateScreen } = useContext(TeamsContext);
 
   useEffect(() => {
     const gamesService = new GamesService();
@@ -22,7 +24,7 @@ export default function History() {
           duration: Toast.durations.LONG,
         });
       });
-  }, []);
+  }, [updateScreen, []]);
 
   return (
     <View style={{ padding: 16 }}>

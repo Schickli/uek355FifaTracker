@@ -11,6 +11,8 @@ export const TeamsContext = createContext({
   setTeams: (teams: { "Team 1": Player[]; "Team 2": Player[] }) => {},
   currentTeam: "Team 1" as "Team 1" | "Team 2",
   setCurrentTeam: (team: "Team 1" | "Team 2") => {},
+  updateScreen: 0 as number,
+  setUpdateScreen: (screen: number) => {},
 });
 
 export default function Layout() {
@@ -22,9 +24,11 @@ export default function Layout() {
     "Team 1" as "Team 1" | "Team 2"
   );
 
+  const [updateScreen, setUpdateScreen] = useState(0);
+
   return (
     <TeamsContext.Provider
-      value={{ teams, setTeams, currentTeam, setCurrentTeam }}
+      value={{ teams, setTeams, currentTeam, setCurrentTeam, updateScreen, setUpdateScreen }}
     >
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

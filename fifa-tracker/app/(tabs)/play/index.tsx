@@ -15,7 +15,7 @@ import { TeamsContext } from "../../_layout";
 export default function Play() {
   const [teamResult1, setTeamResult1] = useState(0);
   const [teamResult2, setTeamResult2] = useState(0);
-  let { teams, setTeams, currentTeam, setCurrentTeam } = useContext(TeamsContext);
+  let { teams, setTeams, currentTeam, setCurrentTeam, setUpdateScreen, updateScreen } = useContext(TeamsContext);
 
   function saveGame() {
     if (teams["Team 1"].length === 0 || teams["Team 2"].length === 0) {
@@ -39,7 +39,7 @@ export default function Play() {
     //   members1: [{full_name: "Maurin Schickli"} as Player],
     //   members2: [{full_name: "Cyrill Koller"} as Player],
     //   score1: 30,
-    //   score2: 1,
+    //   score2: 20,
     //   date: new Date().toLocaleString(),
     // };
 
@@ -50,6 +50,7 @@ export default function Play() {
           duration: Toast.durations.LONG,
         });
         clear();
+        setUpdateScreen(updateScreen + 1);
       })
       .catch(() => {
         let toast = Toast.show("Request failed to send.", {

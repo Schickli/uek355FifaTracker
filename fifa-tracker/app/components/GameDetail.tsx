@@ -1,11 +1,12 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { colorPallet } from "../../utils/ColorPallet";
 import { useFonts } from "expo-font";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Player } from "../../utils/Player";
 import GamesService from "../../services/gamesService";
 import Toast from "react-native-root-toast";
+import { TeamsContext } from "../_layout";
 
 type Game = {
   id: string;
@@ -16,6 +17,9 @@ type Game = {
 };
 
 export default function GameDetail({ id, date, score, team1, team2 }: Game) {
+
+  let { setUpdateScreen, updateScreen } = useContext(TeamsContext);
+
   const [fontsLoaded] = useFonts({
     "Nohemi Bold": require("../../assets/fonts/Nohemi-Bold.ttf"),
   });
@@ -32,6 +36,7 @@ export default function GameDetail({ id, date, score, team1, team2 }: Game) {
         let toast = Toast.show("Game deleted.", {
           duration: Toast.durations.LONG,
         });
+        setUpdateScreen(updateScreen + 1);
       })
       .catch(() => {
         let toast = Toast.show("Request failed to send.", {
