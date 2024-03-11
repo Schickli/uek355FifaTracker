@@ -3,15 +3,24 @@ import React, { useEffect, useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { colorPallet } from "../../utils/ColorPallet";
 
-export default function SearchBar() {
+type SearchProps = {
+  children?: React.ReactNode;
+  setValue: (value: string) => void;
+  value?: string;
+};
+
+export default function SearchBar({ children, setValue }: SearchProps) {
   return (
     <View style={styles.SearchBar}>
       <TextInput
         style={styles.inputStyle}
         placeholder="Search..."
         placeholderTextColor={colorPallet.primaryLight}
+        onChangeText={(text) => {
+          setValue(text);
+        }}
       />
-      <Ionicons name="search" size={30} color={colorPallet.secondary} />
+      {children}
     </View>
   );
 }

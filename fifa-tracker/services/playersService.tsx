@@ -7,7 +7,10 @@ import {
   DocumentData,
   setDoc,
   doc,
+  getDoc,
   updateDoc,
+  where,
+  deleteDoc,
 } from "firebase/firestore";
 
 import firebaseApp from "../firebaseConfig";
@@ -66,10 +69,13 @@ class PlayersService {
   }
 
   public async getPlayerById(id: number) {
-    
+    const playerRef = doc(getFirestore(firebaseApp), "players", id.toString());
+    return getDoc(playerRef);
   }
 
   public async deletePlayer(id: number) {
+    const playerRef = doc(getFirestore(firebaseApp), "players", id.toString());
+    return deleteDoc(playerRef);
   }
 }
 
