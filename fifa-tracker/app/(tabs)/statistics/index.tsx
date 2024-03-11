@@ -1,41 +1,42 @@
 import { View } from "react-native";
 import React, { useEffect, useState } from "react";
-import PlayersService from "../../../services/playersService";
+import StatsService from "../../../services/statsService";
 import { Player } from "../../../utils/Player";
 import StatsContainer from "../../components/StatsContainer";
 import { colorPallet } from "../../../utils/ColorPallet";
+import { AllStatistics } from "../../../utils/AllStatistics";
 
 export default function Statistics() {
-  const [players, setPlayers] = useState([] as Player[]);
+  const [stats, setStats] = useState({} as AllStatistics);
 
   useEffect(() => {
-    const playersService = new PlayersService();
-    playersService.getPlayers().then((players) => {
-      setPlayers(players);
+    const statsService = new StatsService();
+    statsService.getStats().then((stats: AllStatistics) => {
+      console.log(stats);
+      setStats(stats);
     });
   }, []);
 
   return (
     <View style={{ padding: 16 }}>
-      {/* <Text>Play</Text>
-      {players.map((player) => (
-        <Text key={player.full_name}>{player.full_name}</Text>
-      ))} */}
       <StatsContainer
-        headLine="256 Games"
-        subTitle="Total Games"
+        headLine={stats.allGoals?.toString() + " Goals" || "0 Goals"}
+        subTitle={
+          stats.averageGoalsPerGame?.toString() + " Avg Goals per Game" ||
+          "0 Avg Goals per Game"
+        }
         color={colorPallet.onPrimary}
         backgroundColor={colorPallet.primary}
       />
       <StatsContainer
-        headLine="Cyrill Koller"
-        subTitle="Best Player"
+        headLine={stats.mostWinsPlayer || "No Player's yet"}
+        subTitle="Most Wins Player"
         color={colorPallet.text}
         backgroundColor={colorPallet.transparent}
       />
       <StatsContainer
-        headLine="652 Goals"
-        subTitle="T2.61 Average per Game"
+        headLine={stats.allGames?.toString() + " Games" || "0 Games"}
+        subTitle={"Total Games"}
         color={colorPallet.onPrimary}
         backgroundColor={colorPallet.primary}
       />

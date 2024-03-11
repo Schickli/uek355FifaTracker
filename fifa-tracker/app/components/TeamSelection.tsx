@@ -4,14 +4,15 @@ import React, { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import ListItem from "./ListItem";
 import { Link } from "expo-router";
+import { Player } from "../../utils/Player";
 
 type TeamSelectionProps = {
   currentTeam: "Team 1" | "Team 2";
-  teams: { "Team 1": { name: string }[]; "Team 2": { name: string }[] };
+  teams: { "Team 1": Player[]; "Team 2": Player[] };
   setTeams: React.Dispatch<
     React.SetStateAction<{
-      "Team 1": { name: string }[];
-      "Team 2": { name: string }[];
+      "Team 1": Player[];
+      "Team 2": Player[];
     }>
   >;
 };
@@ -38,7 +39,7 @@ export default function TeamSelection({
           }}
         >
           <View>
-            <ListItem name={player.name} action={removePlayer} index={index}>
+            <ListItem name={player.full_name} action={removePlayer} index={index}>
               <Ionicons name="trash" size={24} color={colorPallet.secondary} />
             </ListItem>
           </View>
