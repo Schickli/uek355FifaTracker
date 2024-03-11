@@ -13,7 +13,7 @@ export default function TeamSelection() {
   function removePlayer(index: number) {
     const newTeams = { ...teams };
     newTeams[currentTeam] = newTeams[currentTeam].filter((_, i) => i !== index);
-    // setTeams(newTeams);
+    setTeams(newTeams);
   }
 
   return (
