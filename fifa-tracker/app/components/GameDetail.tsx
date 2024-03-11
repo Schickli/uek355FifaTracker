@@ -3,12 +3,13 @@ import React from "react";
 import { colorPallet } from "../../utils/ColorPallet";
 import { useFonts } from "expo-font";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Player } from "../../utils/Player";
 
 type Game = {
   date: string;
   score: string;
-  team1: string[];
-  team2: string[];
+  team1: Player[];
+  team2: Player[];
 };
 
 export default function GameDetail({ date, score, team1, team2 }: Game) {
@@ -20,9 +21,7 @@ export default function GameDetail({ date, score, team1, team2 }: Game) {
     return null;
   }
 
-  function deleteGame() {
-    console.log("Delete game");
-  }
+  function deleteGame() {}
 
   return (
     <View
@@ -57,14 +56,14 @@ export default function GameDetail({ date, score, team1, team2 }: Game) {
         <View style={{ width: "30%" }}>
           {team1.map((player, index) => (
             <Text
-              key={player}
+              key={player.id}
               style={{
                 fontSize: 16,
                 textAlign: "left",
                 marginBottom: index !== team1.length - 1 ? 4 : 0,
               }}
             >
-              {player}
+              {player.full_name}
             </Text>
           ))}
         </View>
@@ -72,14 +71,14 @@ export default function GameDetail({ date, score, team1, team2 }: Game) {
         <View style={{ width: "30%" }}>
           {team2.map((player, index) => (
             <Text
-              key={player}
+              key={player.id}
               style={{
                 fontSize: 16,
                 textAlign: "right",
                 marginBottom: index !== team2.length - 1 ? 4 : 0,
               }}
             >
-              {player}
+              {player.full_name}
             </Text>
           ))}
         </View>

@@ -15,16 +15,8 @@ export default function Play() {
   const [teamResult1, setTeamResult1] = useState(0);
   const [teamResult2, setTeamResult2] = useState(0);
   const [teams, setTeams] = useState({
-    "Team 1": [
-      { full_name: "Spieler 1" } as Player,
-      { full_name: "Spieler 2" } as Player,
-      { full_name: "Spieler 3" } as Player,
-    ],
-    "Team 2": [
-      { full_name: "Spieler 6" } as Player,
-      { full_name: "Spieler 5" } as Player,
-      { full_name: "Spieler 4" } as Player,
-    ],
+    "Team 1": [] as Player[],
+    "Team 2": [] as Player[],
   });
 
   const [currentTeam, setCurrentTeam] = useState(

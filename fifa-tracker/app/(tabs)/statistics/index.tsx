@@ -1,20 +1,26 @@
 import { View } from "react-native";
 import React, { useEffect, useState } from "react";
 import StatsService from "../../../services/statsService";
-import { Player } from "../../../utils/Player";
 import StatsContainer from "../../components/StatsContainer";
 import { colorPallet } from "../../../utils/ColorPallet";
 import { AllStatistics } from "../../../utils/AllStatistics";
+import Toast from "react-native-root-toast";
 
 export default function Statistics() {
   const [stats, setStats] = useState({} as AllStatistics);
 
   useEffect(() => {
     const statsService = new StatsService();
-    statsService.getStats().then((stats: AllStatistics) => {
-      console.log(stats);
-      setStats(stats);
-    });
+    statsService
+      .getStats()
+      .then((stats: AllStatistics) => {
+        setStats(stats);
+      })
+      .catch((error) => {
+        let toast = Toast.show("Request failed to send.", {
+          duration: Toast.durations.LONG,
+        });
+      });
   }, []);
 
   return (
@@ -22,8 +28,8 @@ export default function Statistics() {
       <StatsContainer
         headLine={stats.allGoals?.toString() + " Goals" || "0 Goals"}
         subTitle={
-          stats.averageGoalsPerGame?.toString() + " Avg Goals per Game" ||
-          "0 Avg Goals per Game"
+          stats.averageGoalsPerGame?.toString() + " Average Goals per Game" ||
+          "0 Average Goals per Game"
         }
         color={colorPallet.onPrimary}
         backgroundColor={colorPallet.primary}
