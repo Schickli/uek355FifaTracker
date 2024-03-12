@@ -39,17 +39,13 @@ class GamesService {
     return this._instance;
   }
 
-  private async uniqueID() {
-    const gamesSnapshot = await getDocs(this.gamesCollection);
-    const games = gamesSnapshot.docs.map((doc) => doc.data());
-    return games.length + 1;
-  }
-
   private async postGame(game: Game) {
+    let autoId = doc(this.gamesCollection).id;
     await setDoc(
-      doc(getFirestore(firebaseApp), "games", game.id?.toString() as string),
+      doc(getFirestore(firebaseApp), "games", autoId),
       game
     );
+
 
     game.members1.forEach((player) => {
       if (game.score1 > game.score2) {
@@ -108,7 +104,6 @@ class GamesService {
   }
 
   public async addGame(game: Game) {
-    game.id = await this.uniqueID();
     return await this.postGame(game);
   }
 
