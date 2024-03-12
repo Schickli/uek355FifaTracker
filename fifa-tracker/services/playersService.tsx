@@ -11,6 +11,8 @@ import {
   updateDoc,
   where,
   deleteDoc,
+  LogLevel,
+  setLogLevel
 } from "firebase/firestore";
 
 import firebaseApp from "../firebaseConfig";
@@ -18,10 +20,19 @@ import { Player } from "../utils/Player";
 
 class PlayersService {
   private playersCollection: CollectionReference<DocumentData>;
+  private static _instance: PlayersService;
 
   constructor() {
     const db = getFirestore(firebaseApp);
     this.playersCollection = collection(db, "players");
+    // setLogLevel("warn");
+  }
+
+  public static get instance() {
+    if (!this._instance) {
+      this._instance = new PlayersService();
+    }
+    return this._instance;
   }
 
   private async uniqueID() {
