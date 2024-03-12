@@ -23,7 +23,8 @@ export default function Statistics() {
           duration: Toast.durations.LONG,
         });
       });
-  }, [[], updateScreen]);
+    }, [[], updateScreen]);
+  // }, []);
 
   return (
     <View style={{ padding: 16 }}>
