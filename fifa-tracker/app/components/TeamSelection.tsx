@@ -27,7 +27,11 @@ export default function TeamSelection() {
           }}
         >
           <View>
-            <ListItem name={player.full_name} action={removePlayer} index={index}>
+            <ListItem
+              name={player.full_name}
+              action={removePlayer}
+              index={index}
+            >
               <Ionicons name="trash" size={24} color={colorPallet.secondary} />
             </ListItem>
           </View>
@@ -46,7 +50,7 @@ export default function TeamSelection() {
           marginTop: 10,
         }}
       >
-        <Link href="modals/addPlayerToTeamModal" asChild >
+        <Link href="modals/addPlayerToTeamModal" asChild>
           <TouchableOpacity>
             <ListItem name="Add Player" index={0}>
               <Ionicons name="add" size={24} color={colorPallet.secondary} />

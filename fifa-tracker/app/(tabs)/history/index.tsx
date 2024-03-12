@@ -1,5 +1,6 @@
-import { View, Text, RefreshControl } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text } from "react-native";
+import React, { useState } from "react";
+import { useFocusEffect } from "expo-router";
 import Toast from "react-native-root-toast";
 import GamesService from "../../../services/gamesService";
 import { Game } from "../../../utils/Game";
@@ -27,19 +28,28 @@ export default function History() {
     setIsFetching(false);
   }
 
-  useEffect(() => {
-    updateGames();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      updateGames();
+    }, [])
+  );
 
   return (
     <View style={{ padding: 16 }}>
       {games.length === 0 ? (
-        <Text style={{ width: "100%", color: colorPallet.outline }}>
+        <Text
+          style={{
+            width: "100%",
+            color: colorPallet.outline,
+            textAlign: "center",
+            marginTop: 16,
+          }}
+        >
           No games yet.
         </Text>
       ) : (
         <FlatList
-        style={{ width: "100%", height: "100%"}}
+          style={{ width: "100%", height: "100%" }}
           data={games}
           onRefresh={updateGames}
           refreshing={isFetching}

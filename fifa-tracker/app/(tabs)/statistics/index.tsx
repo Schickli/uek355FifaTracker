@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import React, { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
 import StatsService from "../../../services/statsService";
 import StatsContainer from "../../components/StatsContainer";
 import { colorPallet } from "../../../utils/ColorPallet";
@@ -13,9 +14,11 @@ export default function Statistics() {
   const [loading, setLoading] = useState(true);
   const statsService = StatsService.instance;
 
-  useEffect(() => {
-    getStats();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getStats();
+    }, [])
+  );
 
   function getStats() {
     setLoading(true);

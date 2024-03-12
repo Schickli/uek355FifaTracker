@@ -52,6 +52,13 @@ export default function Manageplayers() {
   }
 
   function addPlayer() {
+    if (search === "") {
+      const toast = Toast.show("Please enter a name.", {
+        duration: Toast.durations.LONG,
+      });
+      return;
+    }
+
     const newPlayer = {
       full_name: search,
       wins: 0,
@@ -88,7 +95,7 @@ export default function Manageplayers() {
         <Text style={styles.subtitle}>Search or Add players</Text>
         <SearchBar setValue={setSearch}>
           <TouchableOpacity onPress={() => addPlayer()}>
-            <Ionicons name="add" size={30} color={colorPallet.secondary} />
+            <Ionicons name="add" size={32} color={colorPallet.secondary} />
           </TouchableOpacity>
         </SearchBar>
         {filteredPlayers.length === 0 ? (
@@ -101,18 +108,24 @@ export default function Manageplayers() {
         ) : (
           <FlatList
             data={filteredPlayers}
-            renderItem={({ item }) => (
-              <ListItem
-                name={item.full_name}
-                index={item.id ?? 0}
-                action={deletePlayer}
-              >
-                <Ionicons
-                  name="trash"
-                  color={colorPallet.secondary}
-                  size={24}
-                />
-              </ListItem>
+            renderItem={({ item, index }) => (
+              <>
+                <ListItem
+                  name={item.full_name}
+                  index={item.id ?? 0}
+                  action={deletePlayer}
+                  style={{
+                    borderColor: colorPallet.outline,
+                    borderWidth: 0.5,
+                  }}
+                >
+                  <Ionicons
+                    name="remove-circle-outline"
+                    color={colorPallet.secondary}
+                    size={32}
+                  />
+                </ListItem>
+              </>
             )}
             keyExtractor={(item) => item.id?.toString() ?? "0"}
             style={styles.flatlist}
@@ -148,7 +161,7 @@ const styles = StyleSheet.create({
   flatlist: {
     marginVertical: 24,
     borderColor: colorPallet.outline,
-    borderWidth: 1,
+    borderWidth: 0.5,
   },
   noPlayersContainer: {
     display: "flex",
