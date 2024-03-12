@@ -52,6 +52,7 @@ export default function History() {
                 score={item.score1 + " - " + item.score2}
                 team1={item.members1}
                 team2={item.members2}
+                updateGames={updateGames}
               />
             </View>
           )}

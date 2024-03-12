@@ -8,15 +8,16 @@ import GamesService from "../../services/gamesService";
 import Toast from "react-native-root-toast";
 import { TeamsContext } from "../_layout";
 
-type Game = {
+type GameProps = {
   id: string;
   date: string;
   score: string;
   team1: Player[];
   team2: Player[];
+  updateGames: () => void;
 };
 
-export default function GameDetail({ id, date, score, team1, team2 }: Game) {
+export default function GameDetail({ id, date, score, team1, team2, updateGames }: GameProps) {
 
   const gamesService = GamesService.instance;
 
@@ -32,6 +33,7 @@ export default function GameDetail({ id, date, score, team1, team2 }: Game) {
     gamesService
       .deleteGame(id)
       .then(() => {
+        updateGames();
         let toast = Toast.show("Game deleted.", {
           duration: Toast.durations.LONG,
         });
