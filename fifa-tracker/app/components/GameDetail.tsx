@@ -18,8 +18,6 @@ type Game = {
 
 export default function GameDetail({ id, date, score, team1, team2 }: Game) {
 
-  let { setUpdateScreen, updateScreen } = useContext(TeamsContext);
-
   const gamesService = GamesService.instance;
 
   const [fontsLoaded] = useFonts({
@@ -37,7 +35,6 @@ export default function GameDetail({ id, date, score, team1, team2 }: Game) {
         let toast = Toast.show("Game deleted.", {
           duration: Toast.durations.LONG,
         });
-        setUpdateScreen(updateScreen + 1);
       })
       .catch(() => {
         let toast = Toast.show("Request failed to send.", {

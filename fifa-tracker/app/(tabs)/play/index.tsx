@@ -15,7 +15,7 @@ import { TeamsContext } from "../../_layout";
 export default function Play() {
   const [teamResult1, setTeamResult1] = useState(0);
   const [teamResult2, setTeamResult2] = useState(0);
-  let { teams, setTeams, currentTeam, setCurrentTeam, setUpdateScreen, updateScreen } = useContext(TeamsContext);
+  let { teams, setTeams, currentTeam, setCurrentTeam } = useContext(TeamsContext);
 
   const gamesService = GamesService.instance;
 
@@ -51,7 +51,6 @@ export default function Play() {
           duration: Toast.durations.LONG,
         });
         clear();
-        setUpdateScreen(updateScreen + 1);
       })
       .catch(() => {
         let toast = Toast.show("Request failed to send.", {

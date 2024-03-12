@@ -5,11 +5,9 @@ import StatsContainer from "../../components/StatsContainer";
 import { colorPallet } from "../../../utils/ColorPallet";
 import { AllStatistics } from "../../../utils/AllStatistics";
 import Toast from "react-native-root-toast";
-import { TeamsContext } from "../../_layout";
 
 export default function Statistics() {
   const [stats, setStats] = useState({} as AllStatistics);
-  let { updateScreen } = useContext(TeamsContext);
   const statsService = StatsService.instance;
 
   useEffect(() => {
@@ -23,8 +21,7 @@ export default function Statistics() {
           duration: Toast.durations.LONG,
         });
       });
-    }, [[], updateScreen]);
-  // }, []);
+  }, []);
 
   return (
     <View style={{ padding: 16 }}>
