@@ -73,6 +73,7 @@ class GamesService {
   public async getGames() {
     const gamesSnapshot = await getDocs(this.gamesCollection);
     const games = gamesSnapshot.docs.map((doc) => doc.data());
+    games.sort((a, b) => (a.date > b.date ? -1 : 1));
     return games as Game[];
   }
 

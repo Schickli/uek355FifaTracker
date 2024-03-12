@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, RefreshControl } from "react-native";
 import React, { useEffect, useState } from "react";
 import Toast from "react-native-root-toast";
 import GamesService from "../../../services/gamesService";
@@ -9,10 +9,12 @@ import { colorPallet } from "../../../utils/ColorPallet";
 
 export default function History() {
   const [games, setGames] = useState({} as Game[]);
+  const [isFetching, setIsFetching] = useState(false);
   const gamesService = GamesService.instance;
 
-  useEffect(() => {
-    gamesService
+  async function updateGames() {
+    setIsFetching(true);
+    await gamesService
       .getGames()
       .then((games: Game[]) => {
         setGames(games);
@@ -22,6 +24,11 @@ export default function History() {
           duration: Toast.durations.LONG,
         });
       });
+    setIsFetching(false);
+  }
+
+  useEffect(() => {
+    updateGames();
   }, []);
 
   return (
@@ -32,7 +39,10 @@ export default function History() {
         </Text>
       ) : (
         <FlatList
+        style={{ width: "100%", height: "100%"}}
           data={games}
+          onRefresh={updateGames}
+          refreshing={isFetching}
           keyExtractor={(item) => item.id?.toString() || ""}
           renderItem={({ item }) => (
             <View style={{ marginTop: 24 }}>
