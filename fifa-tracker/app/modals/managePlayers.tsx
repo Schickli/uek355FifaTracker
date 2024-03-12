@@ -23,9 +23,9 @@ export default function Manageplayers() {
   const [players, setPlayers] = useState([] as Player[]);
   const [filteredPlayers, setFilteredPlayers] = useState([] as Player[]);
   const [search, setSearch] = useState("");
+  const playerservice = PlayersService.instance;
 
   useEffect(() => {
-    const playerservice = new PlayersService();
     playerservice.getPlayers().then((data) => {
       setPlayers(data);
       setFilteredPlayers(data);
@@ -44,7 +44,6 @@ export default function Manageplayers() {
   }, [search]);
 
   function deletePlayer(id: number) {
-    const playerservice = new PlayersService();
     playerservice.deletePlayer(id).then(() => {
       const newPlayers = players.filter((player) => player.id !== id);
       setPlayers(newPlayers);
@@ -53,7 +52,6 @@ export default function Manageplayers() {
   }
 
   function addPlayer() {
-    const playerservice = new PlayersService();
     const newPlayer = {
       full_name: search,
       wins: 0,

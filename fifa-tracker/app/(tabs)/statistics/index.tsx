@@ -10,9 +10,9 @@ import { TeamsContext } from "../../_layout";
 export default function Statistics() {
   const [stats, setStats] = useState({} as AllStatistics);
   let { updateScreen } = useContext(TeamsContext);
+  const statsService = StatsService.instance;
 
   useEffect(() => {
-    const statsService = new StatsService();
     statsService
       .getStats()
       .then((stats: AllStatistics) => {

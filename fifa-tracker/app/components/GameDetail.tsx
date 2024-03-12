@@ -20,6 +20,8 @@ export default function GameDetail({ id, date, score, team1, team2 }: Game) {
 
   let { setUpdateScreen, updateScreen } = useContext(TeamsContext);
 
+  const gamesService = GamesService.instance;
+
   const [fontsLoaded] = useFonts({
     "Nohemi Bold": require("../../assets/fonts/Nohemi-Bold.ttf"),
   });
@@ -29,7 +31,6 @@ export default function GameDetail({ id, date, score, team1, team2 }: Game) {
   }
 
   function deleteGame() {
-    const gamesService = new GamesService();
     gamesService
       .deleteGame(parseInt(id))
       .then(() => {

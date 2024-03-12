@@ -11,9 +11,9 @@ import { TeamsContext } from "../../_layout";
 export default function History() {
   const [games, setGames] = useState({} as Game[]);
   let { updateScreen } = useContext(TeamsContext);
+  const gamesService = GamesService.instance;
 
   useEffect(() => {
-    const gamesService = new GamesService();
     gamesService
       .getGames()
       .then((games: Game[]) => {

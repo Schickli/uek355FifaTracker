@@ -14,17 +14,28 @@ import {
 import firebaseApp from "../firebaseConfig";
 import { Game } from "../utils/Game";
 import PlayersService from "./playersService";
+import StatsService from "./statsService";
 
 class GamesService {
   private gamesCollection: CollectionReference<DocumentData>;
   private playersService: PlayersService;
+  private statsService: StatsService;
   private statsCollection: CollectionReference<DocumentData>;
+  private static _instance: GamesService;
 
   constructor() {
     const db = getFirestore(firebaseApp);
     this.gamesCollection = collection(db, "games");
     this.statsCollection = collection(db, "stats");
-    this.playersService = new PlayersService();
+    this.playersService = PlayersService.instance;
+    this.statsService = StatsService.instance;
+  }
+
+  public static get instance() {
+    if (!this._instance) {
+      this._instance = new GamesService();
+    }
+    return this._instance;
   }
 
   private async uniqueID() {

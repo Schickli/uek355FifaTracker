@@ -14,12 +14,20 @@ class StatsService {
   private playersCollection: CollectionReference<DocumentData>;
   private gamesCollection: CollectionReference<DocumentData>;
   private statsCollection: CollectionReference<DocumentData>;
+  private static _instance: StatsService;
 
   constructor() {
     const db = getFirestore(firebaseApp);
     this.playersCollection = collection(db, "players");
     this.gamesCollection = collection(db, "games");
     this.statsCollection = collection(db, "stats");
+  }
+
+  public static get instance() {
+    if (!this._instance) {
+      this._instance = new StatsService();
+    }
+    return this._instance;
   }
 
   public async getStats() {

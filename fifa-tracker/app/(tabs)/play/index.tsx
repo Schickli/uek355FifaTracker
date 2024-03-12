@@ -17,6 +17,8 @@ export default function Play() {
   const [teamResult2, setTeamResult2] = useState(0);
   let { teams, setTeams, currentTeam, setCurrentTeam, setUpdateScreen, updateScreen } = useContext(TeamsContext);
 
+  const gamesService = GamesService.instance;
+
   function saveGame() {
     if (teams["Team 1"].length === 0 || teams["Team 2"].length === 0) {
       let toast = Toast.show("Please select players for both teams.", {
@@ -24,8 +26,7 @@ export default function Play() {
       });
       return;
     }
-
-    const gamesService = new GamesService();
+    
     let game: Game = {
       members1: teams["Team 1"],
       members2: teams["Team 2"],

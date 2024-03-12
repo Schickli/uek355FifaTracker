@@ -23,9 +23,10 @@ export default function AddPlayerToTeam() {
   useEffect(() => {
     fetchData();
   }, [teams[currentTeam]]);
+  
+  const playersService = PlayersService.instance;
 
   async function fetchData() {
-    const playersService = new PlayersService();
     const unchecked = (await playersService.getPlayers()).filter((player) => {
       return !teams[currentTeam].find(
         (teamPlayer) => teamPlayer.id === player.id
