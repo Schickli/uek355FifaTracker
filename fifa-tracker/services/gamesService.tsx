@@ -12,7 +12,6 @@ import {
 } from "firebase/firestore";
 
 import firebaseApp from "../firebaseConfig";
-import { Player } from "../utils/Player";
 import { Game } from "../utils/Game";
 import PlayersService from "./playersService";
 

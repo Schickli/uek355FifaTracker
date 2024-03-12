@@ -6,7 +6,6 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
-import { useLocalSearchParams } from "expo-router";
 import SearchBar from "../components/SearchBar";
 import { colorPallet } from "../../utils/ColorPallet";
 import Ionicons from "@expo/vector-icons/Ionicons";
