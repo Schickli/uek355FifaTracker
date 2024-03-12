@@ -41,11 +41,7 @@ class GamesService {
   private async postGame(game: Game) {
     let autoId = doc(this.gamesCollection).id;
     game.id = autoId;
-    await setDoc(
-      doc(getFirestore(firebaseApp), "games", autoId),
-      game
-    );
-
+    return await setDoc(doc(getFirestore(firebaseApp), "games", autoId), game);
 
     game.members1.forEach((player) => {
       if (game.score1 > game.score2) {

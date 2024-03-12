@@ -43,7 +43,7 @@ export default function Manageplayers() {
     setFilteredPlayers(playerSearch);
   }, [search]);
 
-  function deletePlayer(id: number) {
+  function deletePlayer(id: string) {
     playerservice.deletePlayer(id).then(() => {
       const newPlayers = players.filter((player) => player.id !== id);
       setPlayers(newPlayers);
@@ -104,7 +104,7 @@ export default function Manageplayers() {
             renderItem={({ item }) => (
               <ListItem
                 name={item.full_name}
-                index={item.id ?? 0}
+                index={item.id ?? "0"}
                 action={deletePlayer}
               >
                 <Ionicons

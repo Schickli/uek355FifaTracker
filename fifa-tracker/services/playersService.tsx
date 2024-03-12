@@ -12,7 +12,7 @@ import {
   where,
   deleteDoc,
   LogLevel,
-  setLogLevel
+  setLogLevel,
 } from "firebase/firestore";
 
 import firebaseApp from "../firebaseConfig";
@@ -35,19 +35,11 @@ class PlayersService {
     return this._instance;
   }
 
-  private async uniqueID() {
-    const playersSnapshot = await getDocs(this.playersCollection);
-    const players = playersSnapshot.docs.map((doc) => doc.data());
-    return players.length + 1;
-  }
-
   private async postPlayer(player: Player) {
+    let autoId = doc(this.playersCollection).id;
+    player.id = autoId;
     return await setDoc(
-      doc(
-        getFirestore(firebaseApp),
-        "players",
-        player.id?.toString() as string
-      ),
+      doc(getFirestore(firebaseApp), "players", autoId),
       player
     );
   }
@@ -59,7 +51,6 @@ class PlayersService {
   }
 
   public async addPlayer(player: Player) {
-    player.id = await this.uniqueID();
     return await this.postPlayer(player);
   }
 
@@ -79,12 +70,12 @@ class PlayersService {
     }
   }
 
-  public async getPlayerById(id: number) {
+  public async getPlayerById(id: string) {
     const playerRef = doc(getFirestore(firebaseApp), "players", id.toString());
     return getDoc(playerRef);
   }
 
-  public async deletePlayer(id: number) {
+  public async deletePlayer(id: string) {
     const playerRef = doc(getFirestore(firebaseApp), "players", id.toString());
     return deleteDoc(playerRef);
   }

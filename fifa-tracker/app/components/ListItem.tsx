@@ -3,8 +3,8 @@ import { View, Text, TouchableOpacity } from "react-native";
 
 type ListItemProps = {
   name: string;
-  action?: (index: number) => void;
-  index: number;
+  action?: (index: string) => void;
+  index: string;
   children: React.ReactNode;
 }
 
