@@ -3,17 +3,17 @@ import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { CustomHeader } from "../components/CustomHeader";
 import { colorPallet } from "../../utils/ColorPallet";
-import { RootSiblingParent } from "react-native-root-siblings";
 
 export default function TabsLayout() {
   return (
-    <RootSiblingParent>
+
       <Tabs
         screenOptions={{
           header: () => <CustomHeader title="Fifa Tracker" />,
           tabBarStyle: {
             height: 100,
             paddingVertical: 8,
+            paddingBottom: 16,
             elevation: 8,
             shadowColor: colorPallet.primary,
             shadowOffset: {
@@ -68,6 +68,5 @@ export default function TabsLayout() {
           }}
         />
       </Tabs>
-    </RootSiblingParent>
   );
 }

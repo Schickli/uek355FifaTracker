@@ -65,7 +65,7 @@ export default function GameDetail({ id, date, score, team1, team2, updateGames 
       >
         <Text style={{ fontSize: 16, marginRight: 16 }}>{date}</Text>
         <TouchableOpacity onPress={deleteGame}>
-          <Ionicons name="trash" size={24} color={colorPallet.secondary} />
+          <Ionicons name="remove-circle-outline" size={24} color={colorPallet.secondary} />
         </TouchableOpacity>
       </View>
       <View

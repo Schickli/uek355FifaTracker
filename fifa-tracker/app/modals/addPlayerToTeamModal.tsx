@@ -23,7 +23,7 @@ export default function AddPlayerToTeam() {
   useEffect(() => {
     fetchData();
   }, [teams[currentTeam]]);
-  
+
   const playersService = PlayersService.instance;
 
   async function fetchData() {
@@ -51,61 +51,68 @@ export default function AddPlayerToTeam() {
   }
 
   return (
-    <TouchableOpacity>
-      <View style={styles.container}>
-        <Text style={styles.title}>{currentTeam}</Text>
-        <Text style={styles.subtitle}>Add players to Team</Text>
-        {/* <SearchBar setValue={setSearch}>
-          <TouchableOpacity>
-            <Ionicons name="search" size={30} color={colorPallet.secondary} />
-          </TouchableOpacity>
-        </SearchBar> */}
-        {teams[currentTeam].length === 0 ? (
-          <View style={styles.noPlayersContainer}>
-            <Text style={styles.noPlayers}>No players selected.</Text>
-          </View>
-        ) : (
-          <FlatList
-            data={teams[currentTeam]}
-            renderItem={({ item, index }) => (
-              <ListItem
-                name={item.full_name}
-                index={index}
-                action={removeFromTeam}
-              >
-                <Ionicons
-                  name="checkmark-done"
-                  color={colorPallet.secondary}
-                  size={24}
-                />
-              </ListItem>
-            )}
-            keyExtractor={(item) => item.id?.toString() ?? "0"}
-            style={styles.flatlistChecked}
-          />
-        )}
-        {uncheckedPlayers.length === 0 ? (
-          <View style={styles.noPlayersContainer}>
-            <Text style={styles.noPlayers}>No players anymore/yet</Text>
-          </View>
-        ) : (
-          <FlatList
-            data={uncheckedPlayers}
-            renderItem={({ item, index }) => (
-              <ListItem name={item.full_name} index={index} action={addToTeam}>
-                <Ionicons
-                  name="add-circle-outline"
-                  color={colorPallet.secondary}
-                  size={24}
-                />
-              </ListItem>
-            )}
-            keyExtractor={(item) => item.id?.toString() ?? "0"}
-            style={styles.flatListUnchecked}
-          />
-        )}
-      </View>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <Text style={styles.title}>{currentTeam}</Text>
+      <Text style={styles.subtitle}>Add players to Team</Text>
+      {teams[currentTeam].length === 0 ? (
+        <View style={styles.noPlayersContainer}>
+          <Text style={styles.noPlayers}>No players selected.</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={teams[currentTeam]}
+          renderItem={({ item, index }) => (
+            <ListItem
+              name={item.full_name}
+              index={index}
+              action={removeFromTeam}
+              textColor={colorPallet.onPrimary}
+              style={{
+                borderColor: colorPallet.outline,
+                borderWidth: 0.5,
+                backgroundColor: colorPallet.primary,
+              }}
+            >
+              <Ionicons
+                name="remove-circle-outline"
+                color={colorPallet.onPrimary}
+                size={32}
+              />
+            </ListItem>
+          )}
+          keyExtractor={(item) => item.id?.toString() ?? "0"}
+          style={styles.flatlist}
+        />
+      )}
+      {uncheckedPlayers.length === 0 ? (
+        <View style={styles.noPlayersContainer}>
+          <Text style={styles.noPlayers}>No players anymore/yet</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={uncheckedPlayers}
+          renderItem={({ item, index }) => (
+            <ListItem
+              name={item.full_name}
+              index={index}
+              action={addToTeam}
+              style={{
+                borderColor: colorPallet.outline,
+                borderWidth: 0.5,
+              }}
+            >
+              <Ionicons
+                name="add-circle-outline"
+                color={colorPallet.secondary}
+                size={32}
+              />
+            </ListItem>
+          )}
+          keyExtractor={(item) => item.id?.toString() ?? "0"}
+          style={styles.flatlist}
+        />
+      )}
+    </View>
   );
 }
 
@@ -131,15 +138,10 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     fontWeight: "bold",
   },
-  flatlistChecked: {
+  flatlist: {
     marginVertical: 24,
     borderColor: colorPallet.outline,
-    borderWidth: 1,
-  },
-  flatListUnchecked: {
-    marginVertical: 24,
-    borderColor: colorPallet.outline,
-    borderWidth: 1,
+    borderWidth: 0.5,
   },
   noPlayersContainer: {
     display: "flex",
