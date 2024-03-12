@@ -17,19 +17,22 @@ export default function History() {
     gamesService
       .getGames()
       .then((games: Game[]) => {
-        setGames(games);;
+        setGames(games);
       })
       .catch((error) => {
         let toast = Toast.show("Request failed to send.", {
           duration: Toast.durations.LONG,
         });
       });
-  }, [updateScreen, []]);
+    // }, [updateScreen, []]);
+  }, []);
 
   return (
     <View style={{ padding: 16 }}>
       {games.length === 0 ? (
-        <Text style={{width: "100%", color: colorPallet.outline}}>No games yet.</Text>
+        <Text style={{ width: "100%", color: colorPallet.outline }}>
+          No games yet.
+        </Text>
       ) : (
         <FlatList
           data={games}
