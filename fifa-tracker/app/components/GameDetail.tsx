@@ -32,7 +32,7 @@ export default function GameDetail({ id, date, score, team1, team2 }: Game) {
 
   function deleteGame() {
     gamesService
-      .deleteGame(parseInt(id))
+      .deleteGame(id)
       .then(() => {
         let toast = Toast.show("Game deleted.", {
           duration: Toast.durations.LONG,
