@@ -40,6 +40,7 @@ class GamesService {
 
   private async postGame(game: Game) {
     let autoId = doc(this.gamesCollection).id;
+    game.id = autoId;
     await setDoc(
       doc(getFirestore(firebaseApp), "games", autoId),
       game
@@ -95,7 +96,7 @@ class GamesService {
     }
   }
 
-  private async getGameById(id: number) {
+  private async getGameById(id: string) {
     const gameDoc = doc(getFirestore(firebaseApp), "games", id.toString());
     const gameSnapshot = await getDocs(this.gamesCollection);
     const game = gameSnapshot.docs.map((doc) => doc.data());
@@ -106,7 +107,7 @@ class GamesService {
     return await this.postGame(game);
   }
 
-  public async deleteGame(id: number) {
+  public async deleteGame(id: string) {
     const gameDoc = doc(getFirestore(firebaseApp), "games", id.toString());
     const game = await this.getGameById(id);
     await this.deleteGameStats(game);
