@@ -9,7 +9,6 @@ import TabButton from "../../components/TabButton";
 import GamesService from "../../../services/gamesService";
 import { Game } from "../../../utils/Game";
 import Toast from "react-native-root-toast";
-import { Player } from "../../../utils/Player";
 import { TeamsContext } from "../../_layout";
 
 export default function Play() {

@@ -55,11 +55,11 @@ export default function AddPlayerToTeam() {
       <View style={styles.container}>
         <Text style={styles.title}>{currentTeam}</Text>
         <Text style={styles.subtitle}>Add players to Team</Text>
-        <SearchBar setValue={setSearch}>
+        {/* <SearchBar setValue={setSearch}>
           <TouchableOpacity>
             <Ionicons name="search" size={30} color={colorPallet.secondary} />
           </TouchableOpacity>
-        </SearchBar>
+        </SearchBar> */}
         {teams[currentTeam].length === 0 ? (
           <View style={styles.noPlayersContainer}>
             <Text style={styles.noPlayers}>No players selected.</Text>
