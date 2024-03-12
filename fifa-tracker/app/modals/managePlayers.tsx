@@ -112,7 +112,7 @@ export default function Manageplayers() {
               <>
                 <ListItem
                   name={item.full_name}
-                  index={item.id ?? 0}
+                  index={item.id ?? "0"}
                   action={deletePlayer}
                   style={{
                     borderColor: colorPallet.outline,
