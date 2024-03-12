@@ -32,7 +32,7 @@ export default function TeamSelection() {
               action={removePlayer}
               index={index}
             >
-              <Ionicons name="trash" size={24} color={colorPallet.secondary} />
+              <Ionicons name="remove-circle-outline" size={24} color={colorPallet.secondary} />
             </ListItem>
           </View>
           {index !== teams[currentTeam].length - 1 && (
@@ -53,7 +53,7 @@ export default function TeamSelection() {
         <Link href="modals/addPlayerToTeamModal" asChild>
           <TouchableOpacity>
             <ListItem name="Add Player" index={0}>
-              <Ionicons name="add" size={24} color={colorPallet.secondary} />
+              <Ionicons name="add-circle-outline" size={24} color={colorPallet.secondary} />
             </ListItem>
           </TouchableOpacity>
         </Link>
